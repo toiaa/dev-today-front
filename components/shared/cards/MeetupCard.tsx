@@ -44,7 +44,7 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
             </p>
             <div className="flex w-full gap-2.5">
               {tags.map((tag: Tag) => {
-                return <PostTags key={tag.name} name={tag.name} />;
+                return <PostTags key={tag.label} label={tag.label} />;
               })}
             </div>
           </div>

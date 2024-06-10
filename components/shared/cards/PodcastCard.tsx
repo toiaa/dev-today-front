@@ -8,6 +8,7 @@ import PostTags from "../tags/PostTags";
 
 const PodcastCard = ({ post, user }: StandardCardProps) => {
   const { title, content, tags, createdAt, likes } = post;
+  console.log(likes);
   const [liked, setLiked] = useState(
     likes.some((like: Like) => like.userId === user.id)
   );
@@ -22,10 +23,10 @@ const PodcastCard = ({ post, user }: StandardCardProps) => {
     }
   };
   return (
-    <div className="flex min-h-[205px] flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
+    <div className="flex min-h-[205px] flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:justify-between lg:gap-5">
       <div className="flex size-full flex-col justify-between gap-[18px]">
         <div className="flex w-full flex-col gap-2.5 overflow-hidden">
-          <p className="paragraph-3-bold lg:paragraph-1-bold w-full truncate  text-dark-800 dark:text-white-100 lg:h-[22px]">
+          <p className="paragraph-3-bold lg:paragraph-1-bold truncate  text-dark-800 dark:text-white-100 lg:h-[22px]">
             {title}
           </p>
           <p className="paragraph-3-regular line-clamp-5 w-full break-all text-white-400 dark:text-white-200">
@@ -38,7 +39,7 @@ const PodcastCard = ({ post, user }: StandardCardProps) => {
             <div className="flex w-full  flex-wrap gap-2.5">
               {tags &&
                 tags.map((tag: Tag) => {
-                  return <PostTags key={tag.name} name={tag.name} />;
+                  return <PostTags key={tag.label} label={tag.label} />;
                 })}
             </div>
           </div>

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { User } from "next-auth";
 import React from "react";
 
 import ShareIcon from "@/components/shared/icons/ShareIcon";
@@ -28,11 +27,11 @@ const GroupCard = ({ group }: GroupCardProps) => {
           <div className="flex items-center">
             {groupUser &&
               groupUser.length > 0 &&
-              groupUser.map((user: User, index: number) => {
+              groupUser.map((user: GroupUser, index: number) => {
                 const marginClass = index !== 0 ? "-ml-3" : "";
                 return (
                   <div
-                    key={user.id}
+                    key={user.userId}
                     className={`relative inline-block ${marginClass}`}
                   >
                     <Image

@@ -1,10 +1,6 @@
 type NavIcons = "layers" | "calendar" | "headphones" | "groups" | "create";
 type NavModalIcons = "notifications" | "search";
 type Sort = "newest" | "popular" | "following";
-type Tag = {
-  id: string;
-  name: string;
-};
 
 type UserProfile = {
   id: string;
@@ -40,18 +36,22 @@ type UserProfile = {
   userIsFollowed: boolean;
 };
 
-type GroupUser = {
-  id: string;
-  userId: string;
-  groupId: string;
-  isAdmin: boolean;
-  active: boolean;
-  isCreator: boolean;
-  user: UserProfile;
-};
 type Like = {
   userId: string;
   user: UserProfile;
   postId: string;
   post: Post;
+};
+
+type GroupUser = {
+  user: UserProfile;
+  userId: string;
+  group: Group;
+  groupId: string;
+  isAdmin: boolean;
+};
+
+type Tag = {
+  id: string;
+  label: string;
 };
