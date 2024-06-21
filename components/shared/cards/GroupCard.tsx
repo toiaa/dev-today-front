@@ -37,8 +37,7 @@ const GroupCard = ({ group }: GroupCardProps) => {
                     <Image
                       width={30}
                       height={30}
-                      src="/assets/emoji.png
-            "
+                      src="/assets/emoji.png"
                       alt="user avatar"
                       className="size-[30px] rounded-full"
                     />

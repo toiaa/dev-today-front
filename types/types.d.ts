@@ -36,6 +36,16 @@ type UserProfile = {
   userIsFollowed: boolean;
 };
 
+type GroupUser = {
+  id: string;
+  userId: string;
+  groupId: string;
+  isAdmin: boolean;
+  active: boolean;
+  isCreator: boolean;
+  user: UserProfile;
+};
+
 type Like = {
   userId: string;
   user: UserProfile;
@@ -43,15 +53,15 @@ type Like = {
   post: Post;
 };
 
-type GroupUser = {
-  user: UserProfile;
-  userId: string;
-  group: Group;
-  groupId: string;
-  isAdmin: boolean;
-};
-
-type Tag = {
+interface GroupNames {
   id: string;
-  label: string;
-};
+  name: string;
+  coverImage: string;
+  bio: string;
+}
+
+interface CreatePostFormProps {
+  groupNames: GroupNames[];
+  authorId?: string;
+  postData?: any;
+}

@@ -22,22 +22,18 @@ interface Post {
   id: string;
   key: string;
   bio?: string;
-
   title: string;
-  content: string;
-  tags: Tag[];
+  tinyContent: string;
+  interestTechTags: Tag[];
   createdAt: string;
-  image: string;
-  coverImage?: string;
-  comments: any; // need to create a comment type
+  coverImage: string;
+  comments: any;
   views: number;
   createdAt: string;
-  authorId: string;
+  meetupDate?: string;
   author: UserProfile;
-  meetDate?: string;
   podcastLength?: string;
   likes: Like[];
-
   _count?: {
     groupUser: number;
   };
