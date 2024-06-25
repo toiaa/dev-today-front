@@ -1,10 +1,6 @@
 type NavIcons = "layers" | "calendar" | "headphones" | "groups" | "create";
 type NavModalIcons = "notifications" | "search";
 type Sort = "newest" | "popular" | "following";
-type Tag = {
-  id: string;
-  name: string;
-};
 
 type UserProfile = {
   id: string;
@@ -49,9 +45,23 @@ type GroupUser = {
   isCreator: boolean;
   user: UserProfile;
 };
+
 type Like = {
   userId: string;
   user: UserProfile;
   postId: string;
   post: Post;
 };
+
+interface GroupNames {
+  id: string;
+  name: string;
+  coverImage: string;
+  bio: string;
+}
+
+interface CreatePostFormProps {
+  groupNames: GroupNames[];
+  authorId?: string;
+  postData?: any;
+}

@@ -1,16 +1,31 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
-import { likePost, timeDifference, unlikePost } from "@/utils/methods";
+import {
+  likePost,
+  timeDifference,
+  unlikePost,
+  removeHtmlTags,
+} from "@/utils/methods";
 
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
-const PostCard = ({ post, user }: StandardCardProps) => {
-  const { title, content, tags, comments, views, createdAt, likes } = post;
+const StandardPostCard = ({ post, user }: StandardCardProps) => {
+  const {
+    title,
+    tinyContent,
+    interestTechTags,
+    comments,
+    views,
+    createdAt,
+    likes,
+    author,
+  } = post;
   const [liked, setLiked] = useState(
-    likes.some((like: Like) => like.userId === user.id)
+    likes?.some((like: Like) => like.userId === user.id)
   );
   const handleLike = () => {
     if (liked) {
@@ -44,9 +59,11 @@ const PostCard = ({ post, user }: StandardCardProps) => {
           />
 
           <div className="flex w-full items-center overflow-hidden lg:gap-5">
-            <p className="paragraph-3-bold lg:paragraph-1-bold inline-block truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
-              {title}
-            </p>
+            <Link href={`/details/${post.id}`}>
+              <p className="paragraph-3-bold lg:paragraph-1-bold inline-block truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
+                {title}
+              </p>
+            </Link>
             <div
               onClick={handleLike}
               className={`flex h-[30px] cursor-pointer items-center justify-center rounded-full bg-primary1-100 p-1 ${liked ? "text-primary1-500" : "text-white-300"} dark:bg-dark-700`}
@@ -55,15 +72,15 @@ const PostCard = ({ post, user }: StandardCardProps) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-between gap-4 md:gap-6 ">
+        <div className="flex flex-col justify-between gap-4 md:gap-6">
           <div className="flex flex-col items-start gap-3 overflow-hidden pr-10 md:gap-4">
             <p className="paragraph-3-regular line-clamp-2 max-w-full break-all text-white-400 dark:text-white-200">
-              {content}
+              {removeHtmlTags(tinyContent)}
             </p>
             <div className="flex w-full flex-wrap gap-2.5">
-              {tags &&
-                tags.map((tag: Tag) => {
-                  return <PostTags key={tag.name} name={tag.name} />;
+              {interestTechTags &&
+                interestTechTags.map((tag: TagProps) => {
+                  return <PostTags key={tag.label} label={tag.label} />;
                 })}
             </div>
           </div>
@@ -78,7 +95,7 @@ const PostCard = ({ post, user }: StandardCardProps) => {
                 className="rounded-full"
               />
               <div className="paragraph-4-bold md:paragraph-3-bold text-dark-700 dark:text-white-300">
-                {user.username}
+                {author.username}
                 <p className="subtitle-small text-dark-700 dark:text-white-300">
                   {timeDifference(createdAt)}
                 </p>
@@ -102,4 +119,4 @@ const PostCard = ({ post, user }: StandardCardProps) => {
   );
 };
 
-export default PostCard;
+export default StandardPostCard;

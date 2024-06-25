@@ -25,14 +25,11 @@ interface StandardCardProps {
   key: string;
   post: Post;
 }
-interface TagProps {
-  key: string;
-  name: string;
-}
+
 interface GroupCardProps {
   user: UserProfile;
   key: string;
-  group: Post;
+  group: Group;
 }
 
 interface ProfilePageProps {
@@ -51,5 +48,14 @@ interface PerformancesCardProps {
 interface InfiniteScrollProps {
   user: UserProfile;
   type: string;
-  initialPosts: Post[];
+  initialContent: Post[] | Group[];
 }
+
+interface GroupCard {
+  group: Group;
+}
+
+type TagProps = {
+  key?: string;
+  label: string;
+};

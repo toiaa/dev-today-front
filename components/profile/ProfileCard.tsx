@@ -8,9 +8,11 @@ import { Separator } from "@/components/ui/separator";
 import { timeDifference } from "@/utils/methods";
 
 import FollowButton from "./FollowButton";
+``;
 
 const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
   if (!user) return null;
+  console.log(user);
   const {
     username,
     createdAt,
@@ -27,6 +29,7 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
     _count: { following, followers },
     userIsFollowed,
   } = user;
+
   return (
     <div className="flex w-full flex-col items-center justify-start gap-5 rounded-2xl bg-white-100 pb-[40px] dark:bg-dark-800 lg:w-[210px] lg:shrink-0  lg:pb-[111px]">
       <div className="flex w-full flex-col items-center justify-center gap-5">
@@ -38,8 +41,7 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
               alt="Profile"
               width={110}
               height={110}
-              className="w-[110px] shrink-0
-        rounded-full border border-primary1-500"
+              className="w-[110px] shrink-0 rounded-full border border-primary1-500"
               style={{ height: "110px", width: "110px" }}
             />
             <div className="flex flex-col">
