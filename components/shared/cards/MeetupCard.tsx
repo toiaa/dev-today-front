@@ -23,7 +23,7 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
             style={{ borderRadius: "10px", width: "72px", height: "72px" }}
           />
 
-          <div className="flex w-full overflow-hidden lg:gap-5">
+          <div className="flex w-full justify-between overflow-hidden lg:gap-5">
             <Link href={`/details/${post.id}`}>
               <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
                 {title}
