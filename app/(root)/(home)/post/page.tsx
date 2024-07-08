@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth";
 
 const CreatePost = async () => {
   const session = await getServerSession(authOptions);
-  const userId = session?.user.id
+  const userId = session?.user.id;
   const resGroups = await fetch(
     `http://localhost:3005/api/user/${userId}/groups`,
     {
@@ -14,11 +14,16 @@ const CreatePost = async () => {
       mode: "cors",
       headers: { "Content-Type": "application/json" },
     }
-  );
+  ); // Fetch all groups for the user????
 
   const groupNames = await resGroups.json();
 
-  return <CreatePostForm groupNames={resGroups.ok ? groupNames : null} authorId={userId}/>;
+  return (
+    <CreatePostForm
+      groupNames={resGroups.ok ? groupNames : null}
+      authorId={userId}
+    />
+  );
 };
 
 export default CreatePost;

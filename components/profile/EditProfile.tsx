@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import CrossIcon from "@/components/shared/icons/CrossIcon";
-import ImageIcon from "@/components/shared/icons/ImageIcon";
-import UploadFileIcon from "@/components/shared/icons/UploadFileIcon";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,29 +17,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { EditProfileSchema } from "@/lib/validations";
 
-const formSchema = z.object({
-  name: z.string().min(4, {
-    message: "Name must be at least 4 characters.",
-  }),
-  username: z.string(),
-  bio: z.string().min(10, {
-    message: "Bio must be at least 10 characters.",
-  }),
-  interestTech: z
-    .array(z.string())
-    .max(7, { message: "You can only add 7 tags" }),
-  linkedinLink: z.string().url().optional().or(z.literal("")),
-  linkedinHandle: z.string().optional(),
-  instagramLink: z.string().url().optional().or(z.literal("")),
-  instagramHandle: z.string().optional(),
-  githubLink: z.string().url().optional().or(z.literal("")),
-  githubHandle: z.string().optional(),
-  xProfileLink: z.string().url().optional().or(z.literal("")),
-  xProfileHandle: z.string().optional(),
-});
+import ProfileImageUpload from "../shared/uploadthing/ProfileImageUpload";
 
-type FormFields = z.infer<typeof formSchema>;
+type FormFields = z.infer<typeof EditProfileSchema>;
 const EditProfile = ({ user }: EditProfileProps) => {
   const {
     username,
@@ -62,11 +42,12 @@ const EditProfile = ({ user }: EditProfileProps) => {
   } = user;
 
   const form = useForm<FormFields>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(EditProfileSchema),
     defaultValues: {
       name: name ?? "",
       username: `@${username}`,
       bio,
+      profileImage: "",
       interestTech: tech,
       linkedinHandle: linkedinHandle ?? "",
       linkedinLink: linkedinLink ?? "",
@@ -80,7 +61,7 @@ const EditProfile = ({ user }: EditProfileProps) => {
   });
 
   const router = useRouter();
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof EditProfileSchema>) {
     try {
       const editResponse = await fetch(
         `http://localhost:3005/api/profile/${id}`,
@@ -103,18 +84,25 @@ const EditProfile = ({ user }: EditProfileProps) => {
     <div className="p-8 md:w-[840px]">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="flex items-center justify-start gap-2.5">
-            <div className="flex size-[60px] items-center justify-center rounded-full bg-white-100 text-white-400 dark:bg-dark-800 dark:text-white-300">
-              <ImageIcon />
-            </div>
-            <Button
-              className="flex gap-2 bg-white-100 text-white-400
-             hover:bg-white-100 dark:bg-dark-800 dark:text-white-300 dark:hover:bg-dark-700"
-            >
-              <UploadFileIcon />
-              <span>Set a profile photo</span>
-            </Button>
-          </div>
+          <FormField
+            control={form.control}
+            name="profileImage"
+            render={({ field }) => (
+              <FormItem className="mt-6 md:mt-8">
+                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                  Profile a cover image
+                </FormLabel>
+                <FormControl>
+                  <ProfileImageUpload
+                    value={field.value}
+                    setValue={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="name"

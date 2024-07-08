@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { timeDifference } from "@/utils/methods";
 
 import FollowButton from "./FollowButton";
-``;
 
 const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
   if (!user) return null;
@@ -18,6 +17,7 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
     createdAt,
     profile,
     id,
+    image,
     profile: {
       name,
       githubLink,
@@ -37,7 +37,7 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
         <div className="flex w-full flex-col items-center gap-5 px-6 ">
           <div className="mt-[-50px] flex w-full flex-col items-center justify-center gap-2.5 ">
             <Image
-              src="/assets/jsmastery.png"
+              src={image ?? "/assets/icons/user.webp"}
               alt="Profile"
               width={110}
               height={110}

@@ -17,6 +17,11 @@ interface SortFiltersCard {
   id: string;
   label: string;
 }
+interface Tag {
+  key?: string;
+  name: string;
+  id: string;
+}
 
 interface Post {
   id: string;
