@@ -59,9 +59,16 @@ interface GroupNames {
   coverImage: string;
   bio: string;
 }
-
-interface CreatePostFormProps {
-  groupNames: GroupNames[];
-  authorId?: string;
-  postData?: any;
-}
+type UserFoundGroup = {
+  userId: string;
+  username: string;
+  imageURL: string;
+};
+type NewGroupData = {
+  name: string;
+  profileImage?: string;
+  coverImage?: string;
+  bio: string;
+  admins: UserFoundGroup[];
+  members: UserFoundGroup[];
+};

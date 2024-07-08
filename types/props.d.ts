@@ -55,7 +55,22 @@ interface GroupCard {
   group: Group;
 }
 
-type TagProps = {
+interface TagProps {
   key?: string;
   label: string;
-};
+}
+
+interface CreatePostFormProps {
+  groupNames: GroupNames[];
+  authorId?: string;
+  postData?: any;
+}
+
+interface CreateGroupFormProps {
+  creatorId?: string;
+}
+
+interface AudioUploadProps {
+  value: string | undefined;
+  setValue: (value: string) => void;
+}

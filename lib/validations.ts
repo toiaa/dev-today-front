@@ -46,3 +46,55 @@ export const createPostSchema = z.object({
 });
 
 export type TCreatePostSchema = z.infer<typeof createPostSchema>;
+
+export const CreateGroupSchema = z.object({
+  name: z.string().min(6, {
+    message: "Group name must be at least 6 characters.",
+  }),
+  profileImage: z.string().optional(),
+  coverImage: z.string().optional(),
+  bio: z.string().min(15, {
+    message: "Group bio must be at least 15 characters.",
+  }),
+  admins: z
+    .array(
+      z.object({
+        userId: z.string(),
+        username: z.string(),
+        imageURL: z.string(),
+      }),
+    )
+    .max(5, "You can only add 5 admins when creating a group"),
+  members: z
+    .array(
+      z.object({
+        userId: z.string(),
+        username: z.string(),
+        imageURL: z.string(),
+      }),
+    )
+    .max(10, "You can only add 10 members when creating a group"),
+});
+export type CreateGroupSchema = z.infer<typeof CreateGroupSchema>;
+
+export const EditProfileSchema = z.object({
+  name: z.string().min(4, {
+    message: "Name must be at least 4 characters.",
+  }),
+  profileImage: z.string().optional().or(z.literal("")),
+  username: z.string(),
+  bio: z.string().min(10, {
+    message: "Bio must be at least 10 characters.",
+  }),
+  interestTech: z
+    .array(z.string())
+    .max(12, { message: "You can only add 12 tags" }),
+  linkedinLink: z.string().url().optional().or(z.literal("")),
+  linkedinHandle: z.string().optional(),
+  instagramLink: z.string().url().optional().or(z.literal("")),
+  instagramHandle: z.string().optional(),
+  githubLink: z.string().url().optional().or(z.literal("")),
+  githubHandle: z.string().optional(),
+  xProfileLink: z.string().url().optional().or(z.literal("")),
+  xProfileHandle: z.string().optional(),
+});

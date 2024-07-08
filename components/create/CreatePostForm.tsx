@@ -9,10 +9,16 @@ import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
 
+import ParseHTML from "@/components/ParseHTML";
 import CalendarIconSVG from "@/components/shared/icons/CalendarIcon";
 import CrossIcon from "@/components/shared/icons/CrossIcon";
 import HeadphonesIcon from "@/components/shared/icons/HeadphonesIcon";
 import HomeIcon from "@/components/shared/icons/HomeIcon";
+import LeftArrowIcon from "@/components/shared/icons/LeftArrowIcon";
+import PreviewIcon from "@/components/shared/icons/PreviewIcon";
+import PostTagsPreview from "@/components/shared/tags/PostTagsPreview";
+import AudioUpload from "@/components/shared/uploadthing/AudioUpload";
+import ImageUpload from "@/components/shared/uploadthing/ImageUpload";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -47,13 +53,6 @@ import {
 import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
-import AudioUpload from "../AudioUpload";
-import ImageUpload from "../ImageUpload";
-import ParseHTML from "../ParseHTML";
-import LeftArrowIcon from "../shared/icons/LeftArrowIcon";
-import PreviewIcon from "../shared/icons/PreviewIcon";
-import PostTagsPreview from "../shared/tags/PostTagsPreview";
-
 const CreatePostForm: React.FC<CreatePostFormProps> = ({
   groupNames,
   authorId,
@@ -66,7 +65,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
   const postsGroupId = selectedPost?.groupId;
   const postGroup = groupNames.find((group) => group.id === postsGroupId);
   const postInterestTechTags = postData?.interestTechTags.map(
-    (tag) => tag.name
+    (tag: Tag) => tag.name
   );
 
   const router = useRouter();
@@ -90,7 +89,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
       interestTechTags: postInterestTechTags || [],
     },
   });
-  console.log("audio", selectedPost?.audioFile)
+  console.log("audio", selectedPost?.audioFile);
 
   const { handleSubmit, watch } = form;
 
@@ -203,7 +202,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
         {isInterestTechTags && (
           <div className="flex w-full gap-2.5">
             {isInterestTechTags.map((tag) => {
-              return <PostTagsPreview key={tag} name={tag} />;
+              return <PostTagsPreview key={tag} label={tag} />;
             })}
           </div>
         )}

@@ -7,23 +7,33 @@ import { useToast } from "@/components/ui/use-toast";
 import { handleFileDelete } from "@/utils/fileUtils";
 import { UploadDropzone } from "@/utils/uploadthing";
 
-import { Button } from "./ui/button";
+import { Button } from "../../ui/button";
 
-const ImageUpload = ({ value, setValue }) => {
+const ImageUpload = ({
+  value,
+  setValue,
+}: {
+  value: string | undefined;
+  setValue: (value: string) => void;
+}) => {
   const { toast } = useToast();
   const [fileIsDeleting, setFileIsDeleting] = useState(false);
 
-
- const deleteFile = (value) => {
-   handleFileDelete(value, setFileIsDeleting, setValue, toast);
- };
-
+  const deleteFile = (value: string) => {
+    handleFileDelete(value, setFileIsDeleting, setValue, toast);
+  };
 
   return (
     <>
-      {value.length ? (
+      {value?.length ? (
         <div className="relative h-[250px] overflow-hidden rounded-2xl">
-          <Image src={value} alt="my image" layout="fill" objectFit="cover" />
+          <Image
+            src={value}
+            alt="my image"
+            layout="fill"
+            objectFit="cover"
+            style={{ objectFit: "cover" }}
+          />
           <Button
             onClick={() => deleteFile(value)}
             type="button"
@@ -38,11 +48,13 @@ const ImageUpload = ({ value, setValue }) => {
         <UploadDropzone
           appearance={{
             container: "border-white-300",
-            button: "bg-primary1-500 text-white-100",
+            button:
+              "dark:bg-dark-800 bg-primary1-500 text-white-100  bg:text-white-300",
             label: "text-primary1-500",
           }}
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
+            console.log(res[0].url);
             setValue(res[0].url);
             toast({
               variant: "success",

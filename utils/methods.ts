@@ -130,3 +130,24 @@ export const deletePost = async (deletePostId: string) => {
     };
   }
 };
+
+export const createGroup = async (
+  groupData: NewGroupData,
+  creatorId: string,
+) => {
+  const members = groupData.members.map((member) => {
+    return { userId: member.userId, isAdmin: false };
+  });
+  const admins = groupData.admins.map((admin) => {
+    return { userId: admin.userId, isAdmin: true };
+  });
+  const valuesToSend = { ...groupData, members, admins, creatorId };
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/group`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(valuesToSend),
+  });
+  return res;
+};

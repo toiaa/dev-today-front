@@ -45,8 +45,8 @@ const PodcastCard = ({ post, user }: StandardCardProps) => {
           <div className="flex flex-col items-start gap-[18px]">
             <div className="flex w-full  flex-wrap gap-2.5">
               {interestTechTags &&
-                interestTechTags.map((tag: TagProps) => {
-                  return <PostTags key={tag.label} label={tag.label} />;
+                interestTechTags.map((tag: Tag) => {
+                  return <PostTags key={tag.id} label={tag.name} />;
                 })}
             </div>
           </div>
